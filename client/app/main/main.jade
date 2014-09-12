@@ -1,0 +1,46 @@
+doctype html
+
+div(ng-include='"components/navbar/navbar.html"')
+
+div.container
+  div.row
+    h1 gr8code Bootcamp applicants
+  div.row
+    h2 New Applications
+    p These applicants have not yet completed the vetting interview.
+    table.table.table-striped
+      th Name
+      th Application Date
+      th Email
+      th Action
+      tr(ng-repeat="applicant in applicants | filter:{status:'Pending Interview'}")
+        td {{applicant.name}}
+        td {{applicant.applicationDate}}
+        td {{applicant.email}}
+        td 
+          button.btn.btn-success(ng-show="applicant.status=='Pending Interview'" ng-click="acceptApplicant(applicant)") Accept
+          button.btn.btn-danger(ng-show="applicant.status=='Pending Interview'") Deny
+          button.btn(ng-show="applicant.status=='Pending Deposit'") Send Deposit Reminder
+  div.row
+    h2 Pending Deposit
+    p These applicants have completed the vetting interview, and still need to submit their deposit.
+    table.table.table-striped
+      th Name
+      th Email
+      th Action
+      tr(ng-repeat="applicant in applicants | filter:{status:'Pending Deposit'}")
+        td {{applicant.name}}
+        td {{applicant.email}}
+        td 
+          button.btn.btn-success(ng-click="acceptDeposit(applicant)") Accept Deposit
+  div.row
+    h2 Paid
+    p These are the rock stars - paid up and ready to roll!
+    table.table.table-striped
+      th Name
+      th Email
+      th Action
+      tr(ng-repeat="applicant in applicants | filter:{status:'Accepted'}")
+        td {{applicant.name}}
+        td {{applicant.email}}
+        td Action Here
