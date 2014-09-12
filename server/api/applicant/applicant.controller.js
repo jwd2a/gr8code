@@ -31,8 +31,18 @@ exports.show = function(req, res) {
 
 // Creates a new applicant in the DB.
 exports.create = function(req, res) {
-  Applicant.create(req.body, function(err, applicant) {
+  var applicant = req.body;
+  //map fields if from Wufoo
+  if (req.headers['user-agent'] === "Wufoo.com"){
+    applicant.name = req.body.Field1 + " " + req.body.Field2;
+    applicant.email = req.body.Field133;
+    applicant.applicationDate = req.body.DateCreated;
+    applicant.status = "Pending Interview";
+    applicant.active = true;
+  }
+  Applicant.create(applicant, function(err, applicant) {
     if(err) { return handleError(res, err); }
+
     return res.json(201, applicant);
   });
 };

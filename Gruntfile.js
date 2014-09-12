@@ -435,7 +435,7 @@ module.exports = function (grunt) {
     },
 
     // Test settings
-    karma: {
+   karma: {
       unit: {
         configFile: 'karma.conf.js',
         singleRun: true
@@ -643,8 +643,8 @@ module.exports = function (grunt) {
         'injector:sass', 
         'concurrent:test',
         'injector',
-        'autoprefixer',
-        'karma'
+        'autoprefixer'
+        //'karma'
       ]);
     }
 
